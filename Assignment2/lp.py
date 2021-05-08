@@ -9,7 +9,7 @@ Original file is located at
 
 # Fetch and import APX wrapper class
 #!wget -q https://raw.githubusercontent.com/rasmus-pagh/apx/main/apx.py -O apx.py
-!wget -q https://raw.githubusercontent.com/andjo16/APX/master/Assignment2/apx2.py -O apx.py
+#!wget -q https://raw.githubusercontent.com/andjo16/APX/master/Assignment2/apx2.py -O apx.py
 #import apx
 import apx2
 from importlib import reload
