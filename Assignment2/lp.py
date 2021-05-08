@@ -9,7 +9,7 @@ Original file is located at
 
 # Fetch and import APX wrapper class
 #!wget -q https://raw.githubusercontent.com/rasmus-pagh/apx/main/apx.py -O apx.py
-#!wget -q https://raw.githubusercontent.com/andjo16/APX/master/Assignment2/apx2.py -O apx.py
+!wget -q https://raw.githubusercontent.com/andjo16/APX/master/Assignment2/apx2.py -O apx.py
 #import apx
 import apx2
 from importlib import reload
@@ -23,14 +23,14 @@ from apx2 import DataFile, LinearProgram, np
 def triangleFinder(graph):
   triangles = []
   for e1 in graph:
-    for e2 in graph:
+    for e2 in graph: #for every pair of edges
       common = set(e1) & set(e2)
-      if len(common)==1:
+      if len(common)==1: #if they have a common node
         u = list(set(e1)-common)[0]
         v = list(set(e2)-common)[0]
-        if [u,v] in graph:
+        if [u,v] in graph: #and if theiir non-common nodes are connected
           tmp = set((u,v,list(common)[0]))
-          if tmp not in triangles:
+          if tmp not in triangles: #then the three nodes to the set of triangles
             triangles.append(set((u,v,list(common)[0])))
   
   return triangles
@@ -47,11 +47,13 @@ def vertexCoverTriangles():
     graph = DataFile(filename)
     vertex_cover_lp = LinearProgram('min')
     objective = {}
+    #Find triangles
     triangles = triangleFinder(graph)
     for (u,v) in graph:
       vertex_cover_lp.add_constraint({u: 1, v: 1}, 1)
       objective[u] = 1.0
       objective[v] = 1.0
+    #Add additional constraints for triangles
     for (u,v,w) in triangles:
       vertex_cover_lp.add_constraint({u: 1, v: 1, w:1}, 2)
     
@@ -73,7 +75,9 @@ def vertexCoverTriangles():
   return (filenames,LPres, roundedres)
 
 """# Orignal LP for approximating VC
-Only used for comparing with triangle aware solution
+Only used for comparing with triangle aware solution.
+
+This code is not functionally changed from the given LP for approximating VC.
 """
 
 def vertexCover():
